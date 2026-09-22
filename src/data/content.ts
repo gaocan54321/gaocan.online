@@ -6,7 +6,6 @@ type BI = { zh: string; en: string }
 /* ---------------- 全局 UI 文案 ---------------- */
 export const ui: Record<string, BI> = {
   heroTitle: { zh: 'Hey！这是我的电子简历', en: 'Hey! This is my e-resume' },
-  downloadCv: { zh: '下载简历', en: 'Download CV' },
   eject: { zh: '⏏ 拔出卡带', en: '⏏ Eject' },
   copy: { zh: '复制', en: 'Copy' },
   copied: { zh: '已复制', en: 'Copied' },
@@ -37,7 +36,7 @@ export const profile = {
     '🤖 AI 应用开发',
     '🎮 AI 游戏',
     '🎬 AI 漫剧',
-    '📱 AI 自媒体',
+    '📊 市场营销',
     '📰 AI 活动策划PM',
     '💻 Hackathon 爱好者（胜率4/6）',
     '📷 视频拍摄剪辑后期',
@@ -337,24 +336,6 @@ export const projects: Project[] = [
     tags: ['STM32', 'C语言', '嵌入式', '物联网', 'WiFi', '蓝牙'],
     shellColor: '#5e7a8c', accentColor: '#4a6575',
   },
-  {
-    id: 'p1',
-    title: { zh: '项目三号占位', en: 'Project Three' },
-    period: '2024',
-    desc: { zh: '项目简介占位：突出你的角色与成果数据。', en: 'Placeholder: highlight your role and measurable results.' },
-    tags: ['React Native', 'Expo'],
-    demoUrl: '#', videoUrl: '#',
-    shellColor: '#d9c9a1', accentColor: '#c9b78d',
-  },
-  {
-    id: 'p4',
-    title: { zh: '项目四号占位', en: 'Project Four' },
-    period: '2023',
-    desc: { zh: '项目简介占位：可以放课程设计、竞赛或开源贡献。', en: 'Placeholder: coursework, competitions, or open source.' },
-    tags: ['Python', 'FastAPI'],
-    repoUrl: '#',
-    shellColor: '#cfc9b8', accentColor: '#bcb5a2',
-  },
 ]
 
 /* ---------------- ⑤ 校园经历（时间线照片墙） ---------------- */
@@ -391,8 +372,13 @@ export const campus: CampusItem[] = [
       { zh: '文稿：曾担任过全辩位，有良好的表达能力、文稿撰写能力、团队配合能力，擅长叙事，能很好的照顾观众听感。', en: 'Writing: Served as all-position debater with strong expression, writing, and teamwork skills; skilled at narrative and audience engagement.' },
     ],
     hue: 140, shellColor: '#7ba68d', accentColor: '#5e8a72' },
-  { id: 'c4', year: '', title: { zh: '竞赛获奖', en: 'Competition Award' }, caption: { zh: '照片占位：颁奖现场', en: 'Photo placeholder' }, hue: 40, shellColor: '#cfc9b8', accentColor: '#bcb5a2' },
-  { id: 'c5', year: '', title: { zh: '毕业季', en: 'Graduation' }, caption: { zh: '照片占位：毕业照', en: 'Photo placeholder' }, hue: 270, shellColor: '#31405e', accentColor: '#263350' },
+  { id: 'c7', year: '', title: { zh: '杭州AI社区 WaytoAGI训练营 | 优秀学员/AI活动策划', en: 'Hangzhou AI Community · WaytoAGI Training Camp | Outstanding Trainee / AI Event Planner' }, caption: { zh: '基于 n8n、Coze 落地 AIGC 工作流与智能体，WaytoAGI 训练营全社区前 1% 优秀学员', en: 'Delivered AIGC workflows and agents with n8n and Coze; top 1% outstanding trainee in the WaytoAGI camp' },
+    bullets: [
+      { zh: '工作内容：基于 n8n 自主搭建咨询新闻定制化飞书推送工作流；基于 Coze 平台搭建杭州旅游助手、小说创作辅助、恋爱军师等垂直场景 AI 智能体；独立完成 3min+ 思政短片从脚本生成、画面创作到剪辑的全流程 AIGC 落地，通过多轮 Prompt 迭代实现精准可控的内容输出。', en: 'Work: Built a customized Feishu news-push workflow with n8n; built vertical AI agents (Hangzhou travel assistant, novel-writing helper, love advisor) on Coze; independently delivered a 3min+ ideological short film end-to-end with AIGC (script, visuals, editing) via iterative prompt engineering.' },
+      { zh: '项目成果：在 WaytoAGI 训练营全社区 1000+ 名参与者中综合排名前 1%，获评优秀学员；思政短片获校优秀思政作业。', en: 'Results: Ranked top 1% among 1000+ participants community-wide and named Outstanding Trainee; the short film won the university Outstanding Ideological Assignment award.' },
+      { zh: '项目内容：志愿者身份，参与 yeesAI 调香项目 / AI 切磋小会 / 安诺新程 AI 视频大赛颁奖 / 龙虾街区活动的策划和现场落地。', en: 'Volunteer: Participated in planning and on-site execution of the yeesAI fragrance project, AI sparring sessions, Annuo Xincheng AI video contest awards, and the Lobster Block event.' },
+    ],
+    hue: 265, shellColor: '#b8a6d9', accentColor: '#9c86c4' },
 ]
 
 /* ---------------- ⑥ 实习经历（卡带 + 说明书） ---------------- */
@@ -404,6 +390,8 @@ export interface Internship {
   slogan?: BI
   desc: BI
   highlights?: Array<BI>
+  /** 结构化段落：工作内容 / 评分体系 / 成果等（与项目板块统一排版） */
+  sections?: ProjectSection[]
   tags?: string[]
   images?: Array<{ src: string; alt: BI }>
   link?: string
@@ -411,39 +399,6 @@ export interface Internship {
   accentColor: string
 }
 export const internships: Internship[] = [
-  {
-    id: 'i1',
-    company: { zh: '实习公司 A', en: 'Company A' },
-    role: { zh: '岗位名称', en: 'Role Title' },
-    period: '2025.06 - 2025.09',
-    slogan: { zh: '在这里填写一句话概括这段实习的核心收获', en: 'One-line summary of key takeaways from this internship.' },
-    desc: { zh: '在这里填写实习的公司简介、团队背景，以及你主要负责的方向。描述你在团队中的角色、参与的核心项目，以及带来的可量化成果。', en: 'Describe the company, team background, and your main responsibilities. Include your role, core projects, and measurable outcomes.' },
-    highlights: [
-      { zh: '亮点一：具体成果或贡献', en: 'Highlight 1: specific achievement or contribution' },
-      { zh: '亮点二：具体成果或贡献', en: 'Highlight 2: specific achievement or contribution' },
-    ],
-    tags: ['技能/工具', '技能/工具', '技能/工具'],
-    images: [],
-    link: '',
-    shellColor: '#2c3e50',
-    accentColor: '#1a252f',
-  },
-  {
-    id: 'i2',
-    company: { zh: '实习公司 B', en: 'Company B' },
-    role: { zh: '岗位名称', en: 'Role Title' },
-    period: '2025.01 - 2025.05',
-    slogan: { zh: '在这里填写一句话概括这段实习的核心收获', en: 'One-line summary of key takeaways from this internship.' },
-    desc: { zh: '在这里填写实习的公司简介、团队背景，以及你主要负责的方向。描述你在团队中的角色、参与的核心项目，以及带来的可量化成果。', en: 'Describe the company, team background, and your main responsibilities. Include your role, core projects, and measurable outcomes.' },
-    highlights: [
-      { zh: '亮点一：具体成果或贡献', en: 'Highlight 1: specific achievement or contribution' },
-    ],
-    tags: ['技能/工具', '技能/工具'],
-    images: [],
-    link: '',
-    shellColor: '#34495e',
-    accentColor: '#2c3e50',
-  },
   {
     id: 'i3',
     company: { zh: '大华股份·浙江华诺康科技有限公司', en: 'Dahua Co., Ltd. / Zhejiang Huanuokang Technology Co., Ltd.' },
@@ -477,9 +432,49 @@ export const internships: Internship[] = [
       { zh: '数据驱动的效果评估体系：基于账号后台数据反馈，搭建内容效果评估体系，通过互动量等核心指标，结构化迭代内容创作 SOP。', en: 'Data-driven evaluation system: built a content performance evaluation framework based on account analytics, using engagement metrics to iteratively improve content creation SOPs.' },
     ],
     tags: ['小红书运营', 'AIGC', 'n8n', '内容SOP', '数据分析'],
-    images: [],
+    images: [
+      { src: '/img/xiaohongshu/screenshot-1.png', alt: { zh: '小红书运营内容产出截图', en: 'Xiaohongshu operations content screenshot' } },
+    ],
     link: '',
     shellColor: '#c0392b',
     accentColor: '#a93226',
+  },
+  {
+    id: 'i5',
+    company: { zh: '杭州伊阁数字媒体有限公司', en: 'Hangzhou Yige Digital Media Co., Ltd.' },
+    role: { zh: 'AI Coding 开发实习生', en: 'AI Coding Development Intern' },
+    period: '2026.07 - 2026.09',
+    slogan: { zh: '从 0 到 1 搭建「采集-生成-评分-改写」AIGC 工作流，1 分钟自动生成 KOL 商单脚本', en: 'Built a "collect-generate-score-rewrite" AIGC pipeline from scratch, auto-generating KOL commercial scripts in about a minute' },
+    desc: { zh: '在杭州伊阁数字媒体担任 AI Coding 开发实习生，聚焦小红书商业内容创作的 AIGC 自动化。围绕 KOL 商单脚本生产与内容质量评估两大痛点，从 0 到 1 搭建「采集-生成-评分-改写」工作流，把内容生产从依赖人工转向数据驱动的规模化产出。', en: 'Served as an AI Coding development intern at Hangzhou Yige Digital Media, focused on AIGC automation for Xiaohongshu commercial content. Targeting the twin pain points of KOL commercial script production and content quality evaluation, I built a "collect-generate-score-rewrite" pipeline from scratch, shifting content production from manual labor to data-driven, scalable output.' },
+    sections: [
+      {
+        heading: { zh: '自动化生产流水线', en: 'Automated Production Pipeline' },
+        items: [
+          { zh: '从 0 到 1 搭建「采集-生成-评分-改写」工作流，覆盖小红书商业内容创作全链路', en: 'Built a "collect-generate-score-rewrite" workflow from scratch, covering the full chain of Xiaohongshu commercial content creation' },
+          { zh: '封装 KOL 风格 Skill，输入 KOL 姓名与产品 Brief，约 1 分钟即可生成视频脚本', en: 'Packaged KOL-style Skills that generate a video script in ~1 minute from a KOL name and product brief' },
+          { zh: '实现匹配不同 KOL 商单笔记的自动化生产，解决内容创作依赖人工、周期长的问题', en: 'Achieved automated production of KOL commercial notes, solving the manual, time-consuming content creation bottleneck' },
+        ],
+      },
+      {
+        heading: { zh: '评分与数据预测体系', en: 'Scoring & Prediction System' },
+        items: [
+          { zh: '采集约 3,000 条笔记，融合 Embedding、OCR、ASR 建设 SQLite 向量数据库', en: 'Collected ~3,000 notes and built a SQLite vector database fusing Embedding, OCR, and ASR' },
+          { zh: '构建覆盖 20+ 维度、100+ 分类、500+ 影响项的评分与数据预测体系', en: 'Constructed a scoring and prediction system spanning 20+ dimensions, 100+ categories, and 500+ impact factors' },
+          { zh: '解决内容质量依赖主观判断、难以规模化评估的问题', en: 'Solved the problem of subjective, hard-to-scale content quality evaluation' },
+        ],
+      },
+      {
+        heading: { zh: '链路打通与提效', en: 'Pipeline Integration & Efficiency' },
+        items: [
+          { zh: '将评分系统接入脚本生成链路，驱动脚本自动完成 2-3 轮定向改写与复评', en: 'Integrated the scoring system into the script generation pipeline, driving 2-3 rounds of targeted rewriting and re-scoring' },
+          { zh: '减少约 80% 的人工筛选和修改耗时', en: 'Reduced manual screening and revision time by ~80%' },
+        ],
+      },
+    ],
+    tags: ['AIGC 工作流', 'KOL 商单', 'Embedding', 'SQLite 向量库', 'OCR/ASR', '内容评分'],
+    images: [],
+    link: '',
+    shellColor: '#5b4a8a',
+    accentColor: '#463a6b',
   },
 ]

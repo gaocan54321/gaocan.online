@@ -131,6 +131,36 @@ export default function InternshipsPack({ lang }: Props) {
           </div>
         )}
 
+        {/* 结构化段落：工作内容 / 评分体系 / 成果…（与项目板块统一排版） */}
+        {intern.sections && intern.sections.length > 0 && (
+          <div className="mt-5 space-y-4">
+            {intern.sections.map((s, si) => (
+              <section key={s.heading.zh}>
+                <h4 className="flex items-baseline gap-2 border-b-2 border-[#3d3428]/70 pb-1 print-serif text-[13px] font-bold tracking-[0.12em] text-[#3d3428]">
+                  <span className="font-mono text-[10px] font-normal tracking-[0.2em] text-[#b0382a]">
+                    {String(si + 1).padStart(2, '0')}
+                  </span>
+                  {s.heading[lang]}
+                  <span className="ml-auto font-mono text-[8px] font-normal tracking-[0.2em] text-[#a08e6c] uppercase">
+                    {s.heading.en}
+                  </span>
+                </h4>
+                {s.body && <p className="print-serif mt-2 text-[13.5px] leading-[2] text-[#3d3428]">{s.body[lang]}</p>}
+                {s.items && (
+                  <ul className="print-serif mt-2 space-y-1.5">
+                    {s.items.map((it) => (
+                      <li key={it.zh} className="flex gap-2 text-[13.5px] leading-[2] text-[#3d3428]">
+                        <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rotate-45 bg-[#b0382a]" />
+                        <span>{it[lang]}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            ))}
+          </div>
+        )}
+
         {/* 技术标签：复古印刷小标 */}
         {intern.tags && intern.tags.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">

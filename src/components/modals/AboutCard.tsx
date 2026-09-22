@@ -82,7 +82,7 @@ export default function AboutCard({ lang }: Props) {
 
       {/* 名片下方的手写批注 */}
       <p className="handwrite mt-4 text-center text-sm text-[#8a7a5e]">
-        {lang === 'zh' ? '—— 初次见面，请多关照' : '— nice to meet you'}
+        {lang === 'zh' ? '——初次见面，请多关照——' : '— nice to meet you'}
       </p>
     </div>
   )

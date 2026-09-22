@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Download } from 'lucide-react'
 import CartridgeGallery from '../components/CartridgeGallery'
 import Character from '../components/Character'
 import ButterflyCursor from '../components/ButterflyCursor'
@@ -10,7 +9,7 @@ import SocialCard from '../components/modals/SocialCard'
 import ProjectsPack from '../components/modals/ProjectsPack'
 import CampusWall from '../components/modals/CampusWall'
 import InternshipsPack from '../components/modals/InternshipsPack'
-import { ui, type Lang, type SectionId } from '../data/content'
+import { type Lang, type SectionId } from '../data/content'
 
 const SECTION_META: Record<SectionId, { no: string; zh: string; en: string; accent: string }> = {
   about: { no: '01', zh: '简介', en: 'ABOUT ME', accent: '#31405e' },
@@ -34,17 +33,6 @@ export default function Home() {
 
       {/* 顶部工具栏 */}
       <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-col items-center pt-6 select-none">
-        <div className="pointer-events-auto absolute right-4 top-4 flex items-center gap-2 sm:right-6 sm:top-5">
-          <a
-            href="/resume.pdf"
-            download
-            className="flex items-center gap-1.5 rounded-full bg-[#31405e] px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow"
-          >
-            <Download size={14} />
-            {ui.downloadCv[lang]}
-          </a>
-        </div>
-
         <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-700">
           我叫高灿，期待和你相遇！
         </h1>
