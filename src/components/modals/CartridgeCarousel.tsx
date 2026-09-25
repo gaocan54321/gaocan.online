@@ -67,7 +67,7 @@ export default function CartridgeCarousel({ items, index, onIndex, renderItem }:
       className="flex snap-x snap-mandatory items-end gap-3 overflow-x-auto overflow-y-hidden pb-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
     >
       {items.map((it, i) => (
-        <div key={it.id} ref={(el) => (itemRefs.current[i] = el)} className="snap-center shrink-0">
+        <div key={it.id} ref={(el) => { itemRefs.current[i] = el }} className="snap-center shrink-0">
           {renderItem(i, i === index)}
         </div>
       ))}
