@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight, FileText, Globe, Play } from 'lucide-react'
 import { projects, ui, type Lang, type Project } from '../../data/content'
+import CartridgeCarousel from './CartridgeCarousel'
 
 interface Props {
   lang: Lang
@@ -11,11 +12,11 @@ function MiniCart({ p, active, onClick }: { p: Project; active: boolean; onClick
   return (
     <button
       onClick={onClick}
-      className={`relative shrink-0 rounded-[4px] text-left transition-all duration-300 ${
+      className={`relative h-28 w-44 shrink-0 rounded-[4px] text-left transition-all duration-300 ${
         active
-          ? 'z-10 -translate-y-3 rotate-0 shadow-[0_14px_28px_rgba(40,30,15,0.35)]'
-          : 'translate-y-0 rotate-[1.5deg] opacity-60 shadow-[0_4px_10px_rgba(40,30,15,0.25)] hover:opacity-90 hover:-translate-y-1'
-      } ${active ? 'h-32 w-56' : 'h-24 w-48'}`}
+          ? 'z-10 -translate-y-2 scale-[1.06] opacity-100 shadow-[0_16px_30px_rgba(40,30,15,0.4)]'
+          : 'translate-y-0 scale-95 opacity-55 shadow-[0_4px_10px_rgba(40,30,15,0.25)] hover:opacity-90 hover:-translate-y-1'
+      }`}
       style={{ backgroundColor: p.shellColor }}
     >
       {/* 顶部握把 */}
@@ -27,13 +28,13 @@ function MiniCart({ p, active, onClick }: { p: Project; active: boolean; onClick
       <span className="absolute inset-x-2 bottom-0 h-3 rounded-t-[2px]" style={{ backgroundColor: p.accentColor }} />
       {/* 标签 */}
       <span
-        className="absolute inset-x-2.5 bottom-5 top-2.5 flex flex-col justify-center rounded-[2px] bg-[#f7f2e4] px-2 py-1.5 shadow-[inset_0_0_0_1px_rgba(120,100,70,0.25)]"
+        className="absolute inset-x-2 bottom-4 top-2 flex flex-col items-center justify-center overflow-hidden rounded-[2px] bg-[#f7f2e4] px-1.5 py-1 shadow-[inset_0_0_0_1px_rgba(120,100,70,0.25)]"
       >
-        <span className="font-mono text-[8px] tracking-[0.2em] text-[#a08e6c]">{p.period}</span>
-        <span className={`${active ? 'text-[13px]' : 'text-[10px]'} print-serif font-bold leading-tight text-[#3d3428] whitespace-nowrap text-center`}>
+        <span className="w-full truncate text-center font-mono text-[8px] tracking-[0.15em] text-[#a08e6c]">{p.period}</span>
+        <span className="line-clamp-2 w-full break-words text-center print-serif text-[12px] font-bold leading-tight text-[#3d3428]">
           {p.title.zh}
         </span>
-        <span className="h-0.5 w-6 rounded-full bg-[#b0382a]" />
+        <span className="mt-1 h-0.5 w-6 rounded-full bg-[#b0382a]" />
       </span>
     </button>
   )
@@ -66,40 +67,32 @@ export default function ProjectsPack({ lang }: Props) {
 
   const prev = () => setIndex((i) => (i - 1 + projects.length) % projects.length)
   const next = () => setIndex((i) => (i + 1) % projects.length)
-  const window_ = [-2, -1, 0, 1, 2].map((d) => (index + d + projects.length) % projects.length)
 
   return (
     <div>
-      {/* 收纳盒：磨砂塑料托盘 + 卡槽 */}
-      <div className="relative rounded-[6px] border border-[#9aa7b8]/50 bg-gradient-to-b from-[#c3ccd8] to-[#aab6c6] px-10 pb-5 pt-8 shadow-[inset_0_2px_8px_rgba(255,255,255,0.6),inset_0_-4px_10px_rgba(60,70,90,0.3)] sm:px-14">
-        {/* 卡槽凹槽 */}
-        <div className="absolute inset-x-8 bottom-4 top-6 flex justify-center gap-3" aria-hidden>
-          {window_.map((_, slot) => (
-            <span
-              key={slot}
-              className={`rounded-[3px] bg-[#8e9bac]/60 shadow-[inset_0_2px_5px_rgba(50,60,80,0.45)] ${slot === 2 ? 'w-56' : 'w-48'}`}
-            />
-          ))}
-        </div>
-
-        <div className="relative flex items-end justify-center gap-3">
-          {window_.map((pi, slot) => (
-            <MiniCart key={projects[pi].id} p={projects[pi]} active={slot === 2} onClick={() => setIndex(pi)} />
-          ))}
-        </div>
+      {/* 收纳盒：磨砂塑料托盘 */}
+      <div className="relative rounded-[6px] border border-[#9aa7b8]/50 bg-gradient-to-b from-[#c3ccd8] to-[#aab6c6] px-6 pb-5 pt-8 shadow-[inset_0_2px_8px_rgba(255,255,255,0.6),inset_0_-4px_10px_rgba(60,70,90,0.3)] sm:px-10">
+        <CartridgeCarousel
+          items={projects}
+          index={index}
+          onIndex={setIndex}
+          renderItem={(i, active) => (
+            <MiniCart p={projects[i]} active={active} onClick={() => setIndex(i)} />
+          )}
+        />
 
         {/* 左右翻页：收纳盒两侧的拨片 */}
         <button onClick={prev} aria-label="previous"
-          className="absolute left-1.5 top-1/2 -translate-y-1/2 rounded-[3px] border border-[#8a97a8]/60 bg-[#dde3ea] p-1.5 text-[#5b6a7d] shadow-[0_2px_0_#8a97a866] transition hover:bg-white active:translate-y-[2px] active:shadow-none">
+          className="absolute left-1 top-1/2 -translate-y-1/2 rounded-[3px] border border-[#8a97a8]/60 bg-[#dde3ea] p-1.5 text-[#5b6a7d] shadow-[0_2px_0_#8a97a866] transition hover:bg-white active:translate-y-[2px] active:shadow-none">
           <ChevronLeft size={16} />
         </button>
         <button onClick={next} aria-label="next"
-          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-[3px] border border-[#8a97a8]/60 bg-[#dde3ea] p-1.5 text-[#5b6a7d] shadow-[0_2px_0_#8a97a866] transition hover:bg-white active:translate-y-[2px] active:shadow-none">
+          className="absolute right-1 top-1/2 -translate-y-1/2 rounded-[3px] border border-[#8a97a8]/60 bg-[#dde3ea] p-1.5 text-[#5b6a7d] shadow-[0_2px_0_#8a97a866] transition hover:bg-white active:translate-y-[2px] active:shadow-none">
           <ChevronRight size={16} />
         </button>
 
         {/* 指示点：像盒盖上的刻痕 */}
-        <div className="relative mt-4 flex justify-center gap-2">
+        <div className="relative mt-3 flex justify-center gap-2">
           {projects.map((proj, i) => (
             <button key={proj.id} onClick={() => setIndex(i)}
               className={`h-1 rounded-full transition-all ${i === index ? 'w-6 bg-[#5b6a7d]' : 'w-2 bg-[#8e9bac] hover:bg-[#6b7a8d]'}`} />
