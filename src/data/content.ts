@@ -26,8 +26,8 @@ export const profile = {
     en: '2023.9-2027.6 Hangzhou Dianzi University | Electronic Information Engineering | Bachelor',
   } as BI,
   achievement: {
-    zh: '专业排名前10% ，国家励志奖学金2次，校优秀奖学金5次，校媒体之星（全校仅10人），校十佳勤工助学之星（全校仅10人）',
-    en: 'Top 10% in major, National Inspiration Scholarship 2x, University Excellence Scholarship 5x, University Media Star (top 10), University Top 10 Work-Study Star (top 10)',
+    zh: '国家励志奖学金2次，校优秀奖学金5次，校媒体之星（全校仅10人），校十佳勤工助学之星（全校仅10人）',
+    en: 'National Inspiration Scholarship 2x, University Excellence Scholarship 5x, University Media Star (top 10), University Top 10 Work-Study Star (top 10)',
   } as BI,
   skills: [
     '⚡ 嵌入式/硬件工程师',

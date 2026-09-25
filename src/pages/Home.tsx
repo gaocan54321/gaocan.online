@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Download } from 'lucide-react'
 import CartridgeGallery from '../components/CartridgeGallery'
 import Character from '../components/Character'
 import ButterflyCursor from '../components/ButterflyCursor'
@@ -30,6 +31,16 @@ export default function Home() {
     <div className="relative">
       <ButterflyCursor />
       <CartridgeGallery onInsert={setSection} />
+
+      {/* 右上角：下载简历 */}
+      <a
+        href="/resume.pdf"
+        download="高灿-简历.pdf"
+        className="pointer-events-auto absolute right-4 top-4 z-50 inline-flex items-center gap-2 rounded-sm border-2 border-[#31405e] bg-[#fef6e4] px-4 py-2 text-sm font-bold text-[#31405e] shadow-[4px_4px_0_0_#31405e] transition-all hover:-translate-y-0.5 hover:bg-[#fff] hover:shadow-[5px_5px_0_0_#31405e] active:translate-x-1 active:translate-y-1 active:shadow-none"
+      >
+        <Download className="size-4" />
+        下载简历
+      </a>
 
       {/* 顶部工具栏 */}
       <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex flex-col items-center pt-6 select-none">
